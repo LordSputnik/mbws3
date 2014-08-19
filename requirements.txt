@@ -1,0 +1,5 @@
+flask==0.10.1
+flask-sqlalchemy==1.0
+flask-restless==0.14.0
+python-memcached==1.53
+psycopg2==2.5.3
