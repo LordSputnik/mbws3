@@ -31,11 +31,27 @@ def create_app(config):
     import ws.schema.gender
     import ws.schema.area
     import ws.schema.area_type
+    import ws.schema.release
+    import ws.schema.release_packaging
+    import ws.schema.release_status
+    import ws.schema.language
+    import ws.schema.release_group
+    import ws.schema.release_group_primary_type
+
+    import ws.schema.artist_credit
 
     manager.create_api(ws.schema.artist.Artist, methods=['GET'], primary_key='gid')
     manager.create_api(ws.schema.artist_type.ArtistType, methods=['GET'])
     manager.create_api(ws.schema.gender.Gender, methods=['GET'])
-    manager.create_api(ws.schema.area.Area, methods=['GET'])
+    manager.create_api(ws.schema.area.Area, methods=['GET'], primary_key='gid')
     manager.create_api(ws.schema.area_type.AreaType, methods=['GET'])
+    manager.create_api(ws.schema.release.Release, methods=['GET'], primary_key='gid', include_methods=['url'])
+    manager.create_api(ws.schema.release_packaging.ReleasePackaging, methods=['GET'])
+    manager.create_api(ws.schema.release_status.ReleaseStatus, methods=['GET'])
+    manager.create_api(ws.schema.language.Language, methods=['GET'])
+    manager.create_api(ws.schema.release_group.ReleaseGroup, methods=['GET'], primary_key='gid')
+    manager.create_api(ws.schema.release_group_primary_type.ReleaseGroupPrimaryType, methods=['GET'], primary_key='gid')
+
+    manager.create_api(ws.schema.artist_credit.ArtistCredit, methods=['GET'])
 
     return app
