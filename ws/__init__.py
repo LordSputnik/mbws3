@@ -37,6 +37,7 @@ def create_app(config):
     import ws.schema.language
     import ws.schema.release_group
     import ws.schema.release_group_primary_type
+    import ws.schema.script
 
     import ws.schema.artist_credit
 
@@ -51,6 +52,7 @@ def create_app(config):
     manager.create_api(ws.schema.language.Language, methods=['GET'])
     manager.create_api(ws.schema.release_group.ReleaseGroup, methods=['GET'], primary_key='gid')
     manager.create_api(ws.schema.release_group_primary_type.ReleaseGroupPrimaryType, methods=['GET'], primary_key='gid')
+    manager.create_api(ws.schema.script.Script, methods=['GET'])
 
     manager.create_api(ws.schema.artist_credit.ArtistCredit, methods=['GET'])
 

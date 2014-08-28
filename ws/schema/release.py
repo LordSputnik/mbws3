@@ -15,7 +15,7 @@ class Release(db.Model):
     status_id = db.Column('status', db.Integer, db.ForeignKey('release_status.id'))
     packaging_id = db.Column('packaging', db.Integer, db.ForeignKey('release_packaging.id'))
     language_id = db.Column('language', db.Integer, db.ForeignKey('language.id'))
-    script_id = db.Column('script', db.Integer)
+    script_id = db.Column('script', db.Integer, db.ForeignKey('script.id'))
 
     barcode = db.Column(db.Unicode(255))
     comment = db.Column(db.Unicode(255), default=u'', nullable=False)
@@ -30,6 +30,7 @@ class Release(db.Model):
     language = db.relationship('Language')
     artist_credit = db.relationship('ArtistCredit')
     release_group = db.relationship('ReleaseGroup')
+    script = db.relationship('Script')
 
     @property
     def begin_date(self):
