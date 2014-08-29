@@ -1,5 +1,5 @@
 
-from ws.schema import db
+from ws import db
 
 class ReleaseGroupPrimaryType(db.Model):
 

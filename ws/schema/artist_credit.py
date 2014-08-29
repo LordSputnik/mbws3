@@ -1,6 +1,6 @@
 import datetime
 
-from ws.schema import db
+from ws import db
 
 class ArtistCredit(db.Model):
 

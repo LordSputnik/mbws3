@@ -1,4 +1,4 @@
-from ws.schema import db
+from ws import db
 
 class ArtistType(db.Model):
 

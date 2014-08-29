@@ -3,6 +3,12 @@ from flask.ext.restless import APIManager
 
 manager = APIManager()
 
+from flask.ext.sqlalchemy import SQLAlchemy
+
+db = SQLAlchemy()
+
+import ws.schema
+
 def add_cors_header(response):
     # https://github.com/jfinkels/flask-restless/issues/223
     response.headers['Access-Control-Allow-Origin'] = '*'
@@ -19,41 +25,43 @@ def create_app(config):
     app.config.update(config)
     app.after_request(add_cors_header)
 
-    from ws.schema import db
+    global db
     db.app = app
     db.init_app(app)
 
     global manager
     manager.init_app(app, flask_sqlalchemy_db=db)
 
-    import ws.schema.artist
-    import ws.schema.artist_type
-    import ws.schema.gender
-    import ws.schema.area
-    import ws.schema.area_type
-    import ws.schema.release
-    import ws.schema.release_packaging
-    import ws.schema.release_status
-    import ws.schema.language
-    import ws.schema.release_group
-    import ws.schema.release_group_primary_type
-    import ws.schema.script
+    manager.create_api(ws.schema.Annotation, methods=['GET'])
+    manager.create_api(ws.schema.Application, methods=['GET'])
 
-    import ws.schema.artist_credit
+    manager.create_api(ws.schema.Area, methods=['GET'], primary_key='gid')
+    manager.create_api(ws.schema.AreaType, methods=['GET'])
 
-    manager.create_api(ws.schema.artist.Artist, methods=['GET'], primary_key='gid')
-    manager.create_api(ws.schema.artist_type.ArtistType, methods=['GET'])
-    manager.create_api(ws.schema.gender.Gender, methods=['GET'])
-    manager.create_api(ws.schema.area.Area, methods=['GET'], primary_key='gid')
-    manager.create_api(ws.schema.area_type.AreaType, methods=['GET'])
-    manager.create_api(ws.schema.release.Release, methods=['GET'], primary_key='gid', include_methods=['url'])
-    manager.create_api(ws.schema.release_packaging.ReleasePackaging, methods=['GET'])
-    manager.create_api(ws.schema.release_status.ReleaseStatus, methods=['GET'])
-    manager.create_api(ws.schema.language.Language, methods=['GET'])
-    manager.create_api(ws.schema.release_group.ReleaseGroup, methods=['GET'], primary_key='gid')
-    manager.create_api(ws.schema.release_group_primary_type.ReleaseGroupPrimaryType, methods=['GET'], primary_key='gid')
-    manager.create_api(ws.schema.script.Script, methods=['GET'])
+    manager.create_api(ws.schema.Artist, methods=['GET'], primary_key='gid')
+    manager.create_api(ws.schema.ArtistType, methods=['GET'])
+    manager.create_api(ws.schema.ArtistCredit, methods=['GET'])
 
-    manager.create_api(ws.schema.artist_credit.ArtistCredit, methods=['GET'])
+
+    manager.create_api(ws.schema.Edit, methods=['GET'])
+    manager.create_api(ws.schema.Editor, methods=['GET'])
+
+    manager.create_api(ws.schema.Gender, methods=['GET'])
+
+    manager.create_api(ws.schema.Language, methods=['GET'])
+
+    manager.create_api(ws.schema.Recording, methods=['GET'])
+
+    manager.create_api(ws.schema.Release, methods=['GET'], primary_key='gid', include_methods=['url'])
+    manager.create_api(ws.schema.ReleasePackaging, methods=['GET'])
+    manager.create_api(ws.schema.ReleaseStatus, methods=['GET'])
+
+    manager.create_api(ws.schema.ReleaseGroup, methods=['GET'], primary_key='gid')
+    manager.create_api(ws.schema.ReleaseGroupPrimaryType, methods=['GET'], primary_key='gid')
+
+    manager.create_api(ws.schema.Script, methods=['GET'])
+
+    manager.create_api(ws.schema.Work, methods=['GET'])
+    manager.create_api(ws.schema.WorkType, methods=['GET'])
 
     return app

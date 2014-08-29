@@ -2,7 +2,7 @@ import datetime
 
 from sqlalchemy.dialects.postgresql import UUID
 
-from ws.schema import db
+from ws import db
 
 class Area(db.Model):
 

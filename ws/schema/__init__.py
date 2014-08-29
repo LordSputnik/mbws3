@@ -1,3 +1,20 @@
-from flask.ext.sqlalchemy import SQLAlchemy
-
-db = SQLAlchemy()
+from ws.schema.artist import Artist
+from ws.schema.artist_type import ArtistType
+from ws.schema.gender import Gender
+from ws.schema.area import Area
+from ws.schema.area_type import AreaType
+from ws.schema.release import Release
+from ws.schema.release_packaging import ReleasePackaging
+from ws.schema.release_status import ReleaseStatus
+from ws.schema.language import Language
+from ws.schema.release_group import ReleaseGroup
+from ws.schema.release_group_primary_type import ReleaseGroupPrimaryType
+from ws.schema.script import Script
+from ws.schema.recording import Recording
+from ws.schema.work import Work
+from ws.schema.work_type import WorkType
+from ws.schema.artist_credit import ArtistCredit
+from ws.schema.editor import Editor
+from ws.schema.annotation import Annotation
+from ws.schema.application import Application
+from ws.schema.edit import Edit
